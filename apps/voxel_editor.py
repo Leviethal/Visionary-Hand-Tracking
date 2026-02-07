@@ -21,6 +21,15 @@ hands = mp_hands.Hands(max_num_hands=1)
 
 cap = cv2.VideoCapture(0)
 
+WINDOW_NAME = "Neon Bubble Popper Pro"
+
+cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
+cv2.setWindowProperty(
+    WINDOW_NAME,
+    cv2.WND_PROP_FULLSCREEN,
+    cv2.WINDOW_FULLSCREEN
+)
+
 
 def project_point(x, y, z, cx, cy):
     if z + CAMERA_Z_OFFSET <= 0.1:
@@ -104,7 +113,7 @@ while True:
             else:
                 draw_perspective_cube(frame, smooth_x, smooth_y, 0, BLOCK_SIZE, (0, 255, 255), 2, cx, cy)
 
-    cv2.imshow('BoxelXR 3D Perspective', frame)
+    cv2.imshow(WINDOW_NAME, frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

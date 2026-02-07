@@ -33,6 +33,15 @@ hands = mp_hands.Hands(max_num_hands=MAX_HANDS, model_complexity=1)
 
 cap = cv2.VideoCapture(0)
 
+WINDOW_NAME = "Neon Bubble Popper Pro"
+
+cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
+cv2.setWindowProperty(
+    WINDOW_NAME,
+    cv2.WND_PROP_FULLSCREEN,
+    cv2.WINDOW_FULLSCREEN
+)
+
 
 class GameBall:
     def __init__(self, x, y):
@@ -216,7 +225,7 @@ while True:
         "PALM: Bounce"
     ])
 
-    cv2.imshow('Neon Bubble Popper Pro', frame)
+    cv2.imshow(WINDOW_NAME, frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 

@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 
 
 def clear_screen():
@@ -13,9 +14,22 @@ def print_header():
     print("=========================================")
 
 
+def run_app(script_path):
+    try:
+        subprocess.run(
+            [sys.executable, script_path],
+            check=True
+        )
+    except subprocess.CalledProcessError as e:
+        print("\n❌ Application crashed.")
+        print(e)
+        input("\nPress Enter to return to menu...")
+
+
 def main():
+    clear_screen()  # clear only once at startup
+
     while True:
-        clear_screen()
         print_header()
         print("\nSelect an Application:")
         print("1. BoxelXR (3D Voxel Editor)")
@@ -25,18 +39,21 @@ def main():
         choice = input("\n> ").strip().lower()
 
         if choice == '1':
-            print("Launching BoxelXR...")
-            os.system(f'"{sys.executable}" apps/voxel_editor.py')
+            print("\nLaunching BoxelXR...\n")
+            run_app("apps/voxel_editor.py")
 
         elif choice == '2':
-            print("Launching Neon Bubble Popper...")
-            os.system(f'"{sys.executable}" apps/neon_popper.py')
+            print("\nLaunching Neon Bubble Popper...\n")
+            run_app("apps/neon_popper.py")
 
         elif choice == 'q':
             print("Exiting...")
             sys.exit()
+
         else:
-            input("Invalid choice. Press Enter to try again.")
+            input("\nInvalid choice. Press Enter to try again.")
+
+        print()  # spacing between menu refreshes
 
 
 if __name__ == "__main__":
